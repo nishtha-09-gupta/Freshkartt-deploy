@@ -42,6 +42,8 @@ const Navbar = () => {
         <NavLink to='/'>Home</NavLink>
         <NavLink to='/products'>All Product</NavLink>
         <NavLink to='/contact'>Contact</NavLink>
+        <NavLink to="/seller" className="px-4 py-2 bg-primary text-white rounded-full hover:bg-primary-dull">Seller Dashboard</NavLink>
+
 
 
         <div className="hidden lg:flex items-center text-sm gap-2 border border-gray-300 px-3 rounded-full">
@@ -101,6 +103,7 @@ const Navbar = () => {
           <NavLink to="/products" onClick={()=> setOpen(false)}>All Product</NavLink>
           {user && <NavLink to="/my-orders" onClick={()=> setOpen(false)}>My Orders</NavLink>}
           <NavLink to="/contact" onClick={()=> setOpen(false)}>Contact</NavLink>
+          <NavLink to="/seller" onClick={() => setOpen(false)}className="px-4 py-2 bg-primary text-white rounded-full hover:bg-primary-dull">Seller Dashboard</NavLink>
 
           {!user ? (
             <button 
