@@ -68,7 +68,7 @@ const SellerLogin = () => {
   const onSubmitHandler = async (event) => {
     event.preventDefault();
     try {
-      const { data } = await axios.post('/api/seller/login', { email, password }, { withCredentials: true } );
+      const { data } = await axios.post('/api/seller/login', { email, password });
       if (data.success) {
         setIsSeller(true);
         navigate('/seller');
@@ -84,7 +84,7 @@ const SellerLogin = () => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const { data } = await axios.get('/api/seller/is-auth', { withCredentials: true } );
+        const { data } = await axios.get('/api/seller/is-auth');
         if (data.success) {
           setIsSeller(true);
           navigate('/seller');
