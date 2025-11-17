@@ -31,7 +31,8 @@
    • Hosting: Vercel
 
 6. API Overview
-   ->User Routes
+
+->User Routes
 
 POST /user/register – Register a new user (Public)
 
@@ -75,7 +76,7 @@ POST /address/add – Add a new address (Authenticated User)
 
 GET /address/get – Get all saved addresses (Authenticated User)
 
-Cart Routes
+-> Cart Routes
 
 POST /cart/update – Add or update items in cart (Authenticated User)
    
