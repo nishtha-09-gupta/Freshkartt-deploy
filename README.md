@@ -31,41 +31,56 @@
    • Hosting: Vercel
 
 6. API Overview
--> User Routes
-Endpoint	             Method	      Access	     Description
-/user/register	        POST	      Public	      Register new user
-/user/login	           POST	      Public    	   User login
-/user/is-auth	        GET	   Authenticated User   Check if user is logged in
-/user/logout	        GET	   Authenticated User	Logout user
+   ->User Routes
+
+POST /user/register – Register a new user (Public)
+
+POST /user/login – User login (Public)
+
+GET /user/is-auth – Check if user is authenticated (Authenticated User)
+
+GET /user/logout – Logout user (Authenticated User)
 
 -> Seller Routes
-Endpoint            	 Method	     Access	          Description
-/seller/login	       POST	        Public	          Seller login
-/seller/is-auth	    GET	   Authenticated Seller  Check seller authentication
-/seller/logout	       GET	   Authenticated Seller	 Logout seller
+
+POST /seller/login – Seller login (Public)
+
+GET /seller/is-auth – Verify seller authentication (Authenticated Seller)
+
+GET /seller/logout – Logout seller (Authenticated Seller)
 
 -> Product Routes
-Endpoint	             Method	     Access	           Description
-/products/add	       POST	   Authenticated Seller	  Add a new product (with images upload)
-/products/list	       GET	      Public	           Get all products
-/products/id	       GET	      Public	           Get product by ID
-/products/stock	    POST	   Authenticated Seller	  Change/update stock
+
+POST /products/add – Add a new product with image upload (Authenticated Seller)
+
+GET /products/list – Get list of all products (Public)
+
+GET /products/id – Get a product by its ID (Public)
+
+POST /products/stock – Update/change stock for a product (Authenticated Seller)
+
 -> Order Routes
-Endpoint	            Method	  Access	              Description
-/order/cod	          POST	  Authenticated User	    Place Cash-on-Delivery order
-/order/stripe	       POST	  Authenticated User     Place online/Stripe order
-/order/user	          GET	  Authenticated User	    Get user’s own orders
-/order/seller	       GET	 Authenticated Seller	 Get all orders for seller dashboard
+
+POST /order/cod – Place a Cash-on-Delivery order (Authenticated User)
+
+POST /order/stripe – Place an online payment / Stripe order (Authenticated User)
+
+GET /order/user – Get all orders of the logged-in user (Authenticated User)
+
+GET /order/seller – Get all orders for seller dashboard (Authenticated Seller)
+
 -> Address Routes
-Endpoint	           Method	    Access	            Description
-/address/add	     POST	 Authenticated User	   Add new address
-/address/get	     GET	    Authenticated User	   Get saved addresses
--> Cart Routes
-Endpoint         	 Method	    Access	            Description
-/cart/update	    POST	    Authenticated User	   Add or update cart items
+
+POST /address/add – Add a new address (Authenticated User)
+
+GET /address/get – Get all saved addresses (Authenticated User)
+
+Cart Routes
+
+POST /cart/update – Add or update items in cart (Authenticated User)
    
 
-8. Deployment
+7. Deployment
    • Frontend: Vercel
    • Backend:  Vercel
    • Database: MongoDB Atlas
