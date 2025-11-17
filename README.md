@@ -31,9 +31,41 @@
    • Hosting: Vercel
 
 6. API Overview
+-> User Routes
+Endpoint	             Method	      Access	     Description
+/user/register	        POST	      Public	      Register new user
+/user/login	           POST	      Public    	   User login
+/user/is-auth	        GET	   Authenticated User   Check if user is logged in
+/user/logout	        GET	   Authenticated User	Logout user
+
+-> Seller Routes
+Endpoint            	 Method	     Access	          Description
+/seller/login	       POST	        Public	          Seller login
+/seller/is-auth	    GET	   Authenticated Seller  Check seller authentication
+/seller/logout	       GET	   Authenticated Seller	 Logout seller
+
+-> Product Routes
+Endpoint	             Method	     Access	           Description
+/products/add	       POST	   Authenticated Seller	  Add a new product (with images upload)
+/products/list	       GET	      Public	           Get all products
+/products/id	       GET	      Public	           Get product by ID
+/products/stock	    POST	   Authenticated Seller	  Change/update stock
+-> Order Routes
+Endpoint	            Method	  Access	              Description
+/order/cod	          POST	  Authenticated User	    Place Cash-on-Delivery order
+/order/stripe	       POST	  Authenticated User     Place online/Stripe order
+/order/user	          GET	  Authenticated User	    Get user’s own orders
+/order/seller	       GET	 Authenticated Seller	 Get all orders for seller dashboard
+-> Address Routes
+Endpoint	           Method	    Access	            Description
+/address/add	     POST	 Authenticated User	   Add new address
+/address/get	     GET	    Authenticated User	   Get saved addresses
+-> Cart Routes
+Endpoint         	 Method	    Access	            Description
+/cart/update	    POST	    Authenticated User	   Add or update cart items
    
 
-7. Deployment
+8. Deployment
    • Frontend: Vercel
    • Backend:  Vercel
    • Database: MongoDB Atlas
