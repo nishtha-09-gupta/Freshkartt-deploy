@@ -28,7 +28,6 @@
    • Backend: Node.js, Express
    • Database: MongoDB Atlas
    • Authentication: JWT
-   • AI: OpenAI API (optional)
    • Hosting: Vercel
 
 6. API Overview
