@@ -1,77 +1,90 @@
 import React, { useEffect, useState } from 'react'
 import { useAppContext } from '../../context/AppContext'
-import { assets ,dummyOrders} from '../../assets/assets'
+import { assets } from '../../assets/assets'
 import toast from 'react-hot-toast'
 
 const Orders = () => {
-const { currency, axios } = useAppContext()
-const [orders, setOrders] = useState([])
+    const { currency, axios } = useAppContext()
+    const [orders, setOrders] = useState([])
 
-
-const fetchOrders = async () => {
-    try {
-        const { data } = await axios.get('/api/order/seller');
-        if (data.success) {
-            setOrders(data.orders)
-        } else {
-            toast.error(data.message)
+    const fetchOrders = async () => {
+        try {
+            const { data } = await axios.get('/api/order/seller');
+            if (data.success) {
+                setOrders(data.orders)
+            } else {
+                toast.error(data.message)
+            }
+        } catch (error) {
+            toast.error(error.message)
         }
-    } catch (error) {
-        toast.error(error.message)
-    }
-};
+    };
 
-useEffect(() => {
-    fetchOrders();
-}, [])
+    useEffect(() => {
+        fetchOrders();
+    }, [])
 
-return (
-    <div className='no-scrollbar flex-1 h-[95vh] overflow-y-scroll'>
-        <div className="md:p-10 p-4 space-y-4">
-            <h2 className="text-lg font-medium">Orders List</h2>
-            {orders.map((order, index) => (
-                <div key={index} className="flex flex-col md:items-center md:flex-row gap-5 justify-between p-5 max-w-4xl rounded-md border border-gray-300">
+    return (
+        <div className="flex-1 h-[95vh] overflow-y-scroll no-scrollbar bg-bg p-6 md:p-10">
+            <h2 className="text-2xl font-semibold text-text-dark mb-6">Orders List</h2>
 
-               
-                    <div className="flex gap-5 max-w-80">
-                        <img className="w-12 h-12 object-cover" src={assets.box_icon} alt="boxIcon" />
-                        <div>
-                            {order.items?.map((item, idx) => (
-                                <div key={idx} className="flex flex-col">
-                                    <p className="font-medium">
+            <div className="flex flex-col gap-5">
+                {orders.length === 0 && (
+                    <p className="text-gray-500 text-center py-20">No orders yet</p>
+                )}
+
+                {orders.map((order, index) => (
+                    <div
+                        key={index}
+                        className="bg-card rounded-2xl shadow-sm hover:shadow-md p-5 md:p-6 flex flex-col md:flex-row justify-between gap-4 transition-transform hover:-translate-y-1"
+                    >
+                       
+                        <div className="flex flex-col md:flex-row gap-4 md:gap-6 flex-1">
+                            <img
+                                className="w-14 h-14 md:w-16 md:h-16 object-cover rounded-lg"
+                                src={assets.box_icon}
+                                alt="boxIcon"
+                            />
+                            <div className="flex flex-col gap-2">
+                                {order.items?.map((item, idx) => (
+                                    <p key={idx} className="font-medium text-text-dark">
                                         {item.product?.name || "Deleted Product"}{" "}
-                                        <span className="text-primary">x {item.quantity || 1}</span>
+                                        <span className="text-primary font-semibold">x{item.quantity || 1}</span>
                                     </p>
-                                </div>
-                            ))}
+                                ))}
+                            </div>
+                        </div>
+
+                      
+                        <div className="flex-1 text-sm md:text-base text-black/70 flex flex-col gap-1">
+                            <p className="font-medium text-text-dark">
+                                {order.address?.firstName || ""} {order.address?.lastName || ""}
+                            </p>
+                            <p>{order.address?.street || ""}, {order.address?.city || ""}</p>
+                            <p>{order.address?.state || ""}, {order.address?.zipcode || ""}, {order.address?.country || ""}</p>
+                            <p>📞 {order.address?.phone || ""}</p>
+                        </div>
+                        <div className="flex items-center justify-center md:justify-end md:flex-1">
+                            <p className="text-lg font-semibold text-text-dark">
+                                {currency}{order.amount || 0}
+                            </p>
+                        </div>
+
+                        <div className="flex flex-col text-sm md:text-base text-black/60 gap-1 md:flex-1">
+                            <p><span className="font-medium text-text-dark">Method:</span> {order.paymentType || "N/A"}</p>
+                            <p><span className="font-medium text-text-dark">Date:</span> {order.createdAt ? new Date(order.createdAt).toLocaleDateString() : "N/A"}</p>
+                            <p>
+                                <span className="font-medium text-text-dark">Payment:</span>{" "}
+                                <span className={order.isPaid ? "text-primary" : "text-red-500"}>
+                                    {order.isPaid ? "Paid" : "Pending"}
+                                </span>
+                            </p>
                         </div>
                     </div>
-
-                    <div className="text-sm md:text-base text-black/60">
-                        <p className='text-black/80'>
-                            {order.address?.firstName || ""} {order.address?.lastName || ""}
-                        </p>
-                        <p>{order.address?.street || ""}, {order.address?.city || ""}</p>
-                        <p>{order.address?.state || ""}, {order.address?.zipcode || ""}, {order.address?.country || ""}</p>
-                        <p>{order.address?.phone || ""}</p>
-                    </div>
-
-                    <p className="font-medium text-lg my-auto">
-                        {currency}{order.amount || 0}
-                    </p>
-
-                    <div className="flex flex-col text-sm md:text-base text-black/60">
-                        <p>Method: {order.paymentType || "N/A"}</p>
-                        <p>Date: {order.createdAt ? new Date(order.createdAt).toLocaleDateString() : "N/A"}</p>
-                        <p>Payment: {order.isPaid ? "Paid" : "Pending"}</p>
-                    </div>
-                </div>
-            ))}
+                ))}
+            </div>
         </div>
-    </div>
-)
-
-
+    )
 }
 
 export default Orders

@@ -3,7 +3,7 @@ import React from "react";
 const ComingSoon = () => {
   return (
     <div className="bg-white text-center px-6 py-28">
-      <h1 className="text-4xl font-bold mb-6 text-[#243654]">
+      <h1 className="text-4xl font-bold mb-6 text-black">
         Something Fresh is Coming Soon!
       </h1>
 

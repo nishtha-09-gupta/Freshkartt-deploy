@@ -12,7 +12,7 @@ const OffersAndDeals = () => {
     },
     {
       title: "Refreshing Beverages",
-      description: "Juices, cold drinks, and more at 30% discount.",
+      description: "Juices, cold drinks, and more at 30% discount. Refresh yourself now ",
       discount: "30% OFF",
       tag: "Limited Time",
       link: "/products/drinks",

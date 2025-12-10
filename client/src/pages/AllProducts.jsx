@@ -27,42 +27,45 @@ const AllProducts = () => {
   const currentProducts = inStockProducts.slice(startIndex, startIndex + itemsPerPage)
 
   return (
-    <div className='mt-16 flex flex-col'>
-      <div className='flex flex-col items-start w-max'>
-        <p className='text-2xl font-medium uppercase text-[#243654] relative inline-block'>
+    <div className="mt-16 flex flex-col px-6 md:px-16">
+      
+      
+      <div className="text-center mb-12">
+        <h1 className="text-3xl md:text-4xl font-bold uppercase text-[var(--color-text-dark)] relative inline-block">
           All Products
-          <span className='block h-0.5 bg-[var(--color-primary)] rounded-full mt-1 w-full'></span>
-        </p>
+          <span className="block h-1 bg-[var(--color-primary)] mt-3 rounded-full w-24 mx-auto"></span>
+        </h1>
       </div>
 
-      <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 md:gap-6 lg:grid-cols-5 mt-6'>
+      <div className="px-2 sm:px-0 grid grid-cols-2 gap-3 
+                      sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 md:gap-6">
+
         {currentProducts.map((product, index) => (
           <ProductCard key={index} product={product} />
         ))}
+
       </div>
-
       {totalPages > 1 && (
-        <div className='flex items-center justify-center gap-4 mt-6'>
+        <div className="flex items-center justify-center gap-4 mt-12">
           <button
-  onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-  disabled={currentPage === 1}
-  className='px-4 py-2 rounded-md bg-[var(--color-primary)] text-white disabled:bg-gray-300'
->
-  Prev
-</button>
+            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+            disabled={currentPage === 1}
+            className="px-4 py-2 rounded-lg bg-[var(--color-primary)] text-white font-semibold disabled:bg-gray-300 disabled:text-gray-600 transition hover:bg-primary-dull"
+          >
+            Prev
+          </button>
 
-<span className='text-lg font-medium'>
-  {currentPage} / {totalPages}
-</span>
+          <span className="text-lg font-medium text-[var(--color-text-dark)]">
+            {currentPage} / {totalPages}
+          </span>
 
-<button
-  onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-  disabled={currentPage === totalPages}
-  className='px-4 py-2 rounded-md bg-[var(--color-primary)] text-white disabled:bg-gray-300'
->
-  Next
-</button>
-
+          <button
+            onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+            disabled={currentPage === totalPages}
+            className="px-4 py-2 rounded-lg bg-[var(--color-primary)] text-white font-semibold disabled:bg-gray-300 disabled:text-gray-600 transition hover:bg-primary-dull"
+          >
+            Next
+          </button>
         </div>
       )}
     </div>

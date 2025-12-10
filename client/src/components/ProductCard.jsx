@@ -1,52 +1,103 @@
 import React from "react";
-import { assets } from "../assets/assets";
 import { useAppContext } from "../context/AppContext";
+import { assets } from "../assets/assets";
 
+const ProductCard = ({ product }) => {
+  const { currency, addToCart, removeFromCart, cartItems, navigate } = useAppContext();
 
-const ProductCard = ({product}) => {
-    const {currency, addToCart, removeFromCart, cartItems, navigate} = useAppContext()
-
-   
-    return product && (
-        <div onClick={()=> {navigate(`/products/${product.category.toLowerCase()}/${product._id}`); scrollTo(0,0)}} className="border border-gray-500/20 rounded-md px-3 py-3 bg-white w-full sm:w-auto flex flex-col justify-between hover:shadow-md transition">
-            <div className="group cursor-pointer flex items-center justify-center px-2">
-                <img className="group-hover:scale-105 transition max-w-26 md:max-w-36" src={product.image[0]} alt={product.name} />
-            </div>
-            <div className="text-gray-500/60 text-sm">
-                <p>{product.category}</p>
-                <p className="text-gray-700 font-medium text-lg truncate w-full">{product.name}</p>
-                <div className="flex items-center gap-0.5">
-                    {Array(5).fill('').map((_, i) => (
-                           <img key={i} className="md:w-3.5 w-3" src={i < 4 ? assets.star_icon : assets.star_dull_icon} alt=""/>
-                    ))}
-                    <p>(4)</p>
-                </div>
-                <div className="flex items-end justify-between mt-3">
-                    <p className="md:text-xl text-base font-medium text-primary">
-                        {currency}{product.offerPrice}{" "} <span className="text-gray-500/60 md:text-sm text-xs line-through">{currency}{product.price}</span>
-                    </p>
-                    <div onClick={(e) => { e.stopPropagation(); }} className="text-primary">
-                        {!cartItems[product._id] ? (
-                            <button className="flex items-center justify-center gap-1 bg-primary/10 border border-primary/40 md:w-[80px] w-[64px] h-[34px] rounded cursor-pointer" onClick={() => addToCart(product._id)} >
-                                <img src={assets.cart_icon} alt="cart_icon"/>
-                                Add
-                            </button>
-                        ) : (
-                            <div className="flex items-center justify-center gap-2 md:w-20 w-16 h-[34px] bg-primary/25 rounded select-none">
-                                <button onClick={() => {removeFromCart(product._id)}} className="cursor-pointer text-md px-2 h-full" >
-                                    -
-                                </button>
-                                <span className="w-5 text-center">{cartItems[product._id]}</span>
-                                <button onClick={() => {addToCart(product._id)}} className="cursor-pointer text-md px-2 h-full" >
-                                    +
-                                </button>
-                            </div>
-                        )}
-                    </div>
-                </div>
-            </div>
+  return (
+    product && (
+      <div
+        onClick={() => {
+          navigate(`/products/${product.category.toLowerCase()}/${product._id}`);
+          scrollTo(0, 0);
+        }}
+        className="bg-card rounded-xl shadow-sm hover:shadow-lg transition cursor-pointer 
+                   w-full sm:w-auto flex flex-col justify-between border border-gray-soft 
+                   p-3 sm:p-4"
+      >
+        <div className="flex items-center justify-center mb-3">
+          <img
+            className="transition-transform transform hover:scale-105 
+                       max-w-24 sm:max-w-28 md:max-w-36 rounded-lg"
+            src={product.image[0]}
+            alt={product.name}
+          />
         </div>
-    );
+
+        
+        <div className="text-gray-500/70 text-sm space-y-1">
+          <p className="uppercase text-[10px] sm:text-xs">{product.category}</p>
+
+          <p className="text-text-dark font-semibold text-sm sm:text-lg truncate w-full">
+            {product.name}
+          </p>
+
+         
+          <div className="flex items-center gap-1">
+            {Array(5)
+              .fill("")
+              .map((_, i) => (
+                <img
+                  key={i}
+                  src={i < 4 ? assets.star_icon : assets.star_dull_icon}
+                  alt="star"
+                  className="w-3 h-3 sm:w-4 sm:h-4"
+                />
+              ))}
+            <p className="text-[10px] sm:text-xs text-gray-soft">(4)</p>
+          </div>
+
+          
+          <div className="flex items-center justify-between mt-2 sm:mt-3">
+            <p className="text-primary font-bold text-sm sm:text-base md:text-xl">
+              {currency}{product.offerPrice}{" "}
+              <span className="text-gray-soft line-through text-[10px] sm:text-xs md:text-sm">
+                {currency}{product.price}
+              </span>
+            </p>
+
+            <div onClick={(e) => e.stopPropagation()} className="flex items-center">
+              {!cartItems[product._id] ? (
+                <button
+                  onClick={() => addToCart(product._id)}
+                  className="flex items-center justify-center gap-1 sm:gap-2 
+                             bg-primary text-white 
+                             px-2 sm:px-3 md:px-4 
+                             py-1 sm:py-1.5 
+                             rounded-full hover:bg-primary-light transition
+                             text-xs sm:text-sm"
+                >
+                  <img src={assets.cart_icon} alt="cart" className="w-3 h-3 sm:w-4 sm:h-4" />
+                  Add
+                </button>
+              ) : (
+                <div className="flex items-center gap-1 sm:gap-2 
+                                bg-primary-light/40 rounded-full 
+                                px-2 sm:px-3 py-1">
+                  <button
+                    onClick={() => removeFromCart(product._id)}
+                    className="font-semibold text-primary px-2 text-sm"
+                  >
+                    -
+                  </button>
+                  <span className="w-4 sm:w-5 text-center font-semibold text-xs sm:text-sm">
+                    {cartItems[product._id]}
+                  </span>
+                  <button
+                    onClick={() => addToCart(product._id)}
+                    className="font-semibold text-primary px-2 text-sm"
+                  >
+                    +
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  );
 };
 
 export default ProductCard;

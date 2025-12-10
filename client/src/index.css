@@ -7,9 +7,16 @@
   
 }
 
+
 @theme {
-  --color-primary: #2b8dd8;
-  --color-primary-dull: #247ABC;
+  --color-primary: #09725C;           
+  --color-primary-light: #0DA585;    
+  --color-accent: #FCD34D;            
+  --color-bg: #F9FAFB;                
+  --color-card: #FFFFFF;             
+  --color-text-dark: #111827;        
+  --color-gray: #E5E7EB;              
+  --color-gray-soft: #D1D5DB;         
 }
 
 .no-scrollbar::-webkit-scrollbar{
