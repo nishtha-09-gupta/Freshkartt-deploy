@@ -16,7 +16,7 @@ const MainBanner = () => {
         <div className='flex items-center mt-6 font-medium gap-4 justify-center md:justify-end'>
           <Link
             to={"/products"}
-            className='group flex items-center gap-2 px-7 md:px-9 py-3 bg-primary hover:bg-primary-dull transition rounded text-white cursor-pointer'
+            className='group flex items-center gap-2 px-7 md:px-9 py-3 bg-primary hover:bg-primary-light transition rounded text-white cursor-pointer'
           >
             Shop now
             <img className='transition group-hover:translate-x-1 md:hidden' src={assets.white_arrow_icon} alt="arrow" />
@@ -36,3 +36,6 @@ const MainBanner = () => {
 }
 
 export default MainBanner
+
+
+//bg-primary-dull

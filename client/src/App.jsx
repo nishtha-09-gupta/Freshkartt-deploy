@@ -23,6 +23,7 @@ import Refund from "./pages/Refund";
 import Contact from "./pages/Contact";
 import Faq from "./pages/FAQ";
 import OffersAndDeals from './pages/Offer';
+import BestSeller from './components/BestSeller';
 
 
 
@@ -50,6 +51,7 @@ const App = () => {
           <Route path="/faq" element={<Faq />} />
           <Route path='/home' element={<Home/>}/>
           <Route path='/offer' element={<OffersAndDeals/>}/>
+          <Route path='/bestSeller' element={<BestSeller/>}/>
          
 
           <Route path='/products' element={<AllProducts/>} />

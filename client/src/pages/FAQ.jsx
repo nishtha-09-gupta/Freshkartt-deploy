@@ -34,7 +34,7 @@ const faqs = [
     question: "How do I contact customer support?",
     answer:
       "You can reach us at support@freshkart.com or call us at +91 90982 34675. Our support hours are 9 AM – 9 PM, Monday to Saturday.",
-    actualEmail: "nishthagupta209@gmail.com", 
+    actualEmail:  "support@freshkart.com", 
     displayEmail: "support@freshkart.com",    
   },
 ];
