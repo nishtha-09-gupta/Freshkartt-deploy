@@ -165,16 +165,8 @@ export const footerLinks = [
       { text: "Track your Order", url: "/my-orders" },
       { text: "Contact Us", url: "/contact" },
     ],
-  },
-  {
-    title: "Follow Us",
-    links: [
-      { text: "Instagram", url: "/coming-soon" },
-      { text: "Twitter", url: "/coming-soon" },
-      { text: "Facebook", url: "/coming-soon" },
-      { text: "YouTube", url: "/coming-soon" },
-    ],
-  },
+  }
+ 
 ];
 
 export const features = [

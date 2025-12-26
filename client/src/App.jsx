@@ -18,7 +18,7 @@ import AddProduct from './pages/seller/AddProduct';
 import ProductList from './pages/seller/ProductList';
 import Orders from './pages/seller/Orders';
 import Loading from './components/Loading';
-import ComingSoon from './pages/ComingSoon'; 
+// import ComingSoon from './pages/ComingSoon'; 
 import Refund from "./pages/Refund";
 import Contact from "./pages/Contact";
 import Faq from "./pages/FAQ";
@@ -45,7 +45,7 @@ const App = () => {
 
         <Routes>
           <Route path='/' element={<Home/>} />
-          <Route path="/coming-soon" element={<ComingSoon />} /> 
+          {/* <Route path="/coming-soon" element={<ComingSoon />} />  */}
           <Route path="/refund" element={<Refund />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/faq" element={<Faq />} />
