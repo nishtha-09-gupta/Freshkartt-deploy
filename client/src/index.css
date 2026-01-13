@@ -8,6 +8,7 @@
 }
 
 
+
 @theme {
   --color-primary: #09725C;           
   --color-primary-light: #0DA585;    
@@ -17,7 +18,8 @@
   --color-text-dark: #111827;        
   --color-gray: #E5E7EB;              
   --color-gray-soft: #D1D5DB;         
-}
+} 
+
 
 .no-scrollbar::-webkit-scrollbar{
   display: none;
