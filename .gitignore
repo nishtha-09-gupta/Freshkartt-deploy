@@ -1,0 +1,10 @@
+# ignore env files
+.env
+server/.env
+client/.env
+
+# node modules
+node_modules/
+
+# misc
+.DS_Store
