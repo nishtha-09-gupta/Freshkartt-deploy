@@ -43,7 +43,7 @@ const SellerLogin = () => {
 
   return (
     <>
-      {/* BACK BUTTON FIXED */}
+      
       <button
         onClick={() => navigate('/')}
         className="absolute top-4 left-4 z-50 bg-primary hover:bg-primary-light text-white px-4 py-2 rounded-md shadow-md transition"
@@ -51,13 +51,13 @@ const SellerLogin = () => {
         ⬅ Back
       </button>
 
-      {/* MAIN FORM */}
+      
       <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
         <form
           onSubmit={onSubmitHandler}
           className="bg-white p-8 md:p-10 rounded-xl shadow-xl border border-gray-200 w-full max-w-sm"
         >
-          {/* Heading */}
+          
           <h2 className="text-3xl font-bold text-center mb-2">
             <span className="text-primary">Seller</span> Login
           </h2>
@@ -66,7 +66,7 @@ const SellerLogin = () => {
             For testing: <b>admin@example.com</b> / <b>12345</b>
           </p>
 
-          {/* Email */}
+          
           <div className="mb-4">
             <label className="block text-gray-700 font-medium mb-1">Email</label>
             <input
@@ -79,7 +79,7 @@ const SellerLogin = () => {
             />
           </div>
 
-          {/* Password */}
+          
           <div className="mb-6">
             <label className="block text-gray-700 font-medium mb-1">Password</label>
             <input
@@ -92,7 +92,7 @@ const SellerLogin = () => {
             />
           </div>
 
-          {/* Login Button */}
+          
           <button
             type="submit"
             className="w-full py-2 bg-primary text-white font-semibold rounded-lg hover:bg-primary-light transition"

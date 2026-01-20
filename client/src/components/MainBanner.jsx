@@ -36,6 +36,3 @@ const MainBanner = () => {
 }
 
 export default MainBanner
-
-
-//bg-primary-dull
