@@ -4,6 +4,7 @@ import cors from 'cors';
 import connectDB from './configs/db.js';
 import 'dotenv/config';
 import userRouter from './routes/userRoute.js';
+import authRouter from './routes/authRoute.js';
 import sellerRouter from './routes/sellerRoute.js';
 import connectCloudinary from './configs/cloudinary.js';
 import productRouter from './routes/productRoute.js';
@@ -31,6 +32,7 @@ app.use(express.json());
 
 
 app.get('/', (req, res) => res.send("API is Working"));
+app.use('/api/auth', authRouter)
 app.use('/api/user', userRouter)
 app.use('/api/seller', sellerRouter)
 app.use('/api/product', productRouter)

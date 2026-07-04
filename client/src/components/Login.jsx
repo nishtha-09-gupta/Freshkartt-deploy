@@ -1,14 +1,23 @@
 import React from 'react'
 import { useAppContext } from '../context/AppContext';
 import toast from 'react-hot-toast';
+import { useLocation } from 'react-router-dom';
 
 const Login = () => {
   const { setShowUserLogin, setUser, axios, navigate } = useAppContext();
+  const location = useLocation();
 
   const [state, setState] = React.useState("login");
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [isDemoLoading, setIsDemoLoading] = React.useState(false);
+
+  const handleAuthSuccess = (user) => {
+    setUser(user);
+    setShowUserLogin(false);
+    navigate(`${location.pathname}${location.search}${location.hash}`);
+  };
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
@@ -17,14 +26,30 @@ const Login = () => {
         name, email, password
       });
       if (data.success) {
-        navigate('/');
-        setUser(data.user);
-        setShowUserLogin(false);
+        handleAuthSuccess(data.user);
       } else {
         toast.error(data.message);
       }
     } catch (error) {
       toast.error(error.message);
+    }
+  };
+
+  const onDemoLoginHandler = async () => {
+    try {
+      setIsDemoLoading(true);
+      const { data } = await axios.post('/api/auth/demo-login');
+
+      if (data.success) {
+        handleAuthSuccess(data.user);
+        toast.success(data.message || 'Logged in as Demo User');
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
+      setIsDemoLoading(false);
     }
   };
 
@@ -105,6 +130,30 @@ const Login = () => {
         <button className="bg-primary hover:bg-primary-dull transition-all text-white w-full py-3 rounded-lg text-sm font-semibold">
           {state === "register" ? "Create Account" : "Login"}
         </button>
+
+        {state === "login" && (
+          <div className="space-y-4">
+            <div className="flex items-center gap-3">
+              <span className="h-px flex-1 bg-gray-200"></span>
+              <span className="text-xs font-medium text-gray-400">OR</span>
+              <span className="h-px flex-1 bg-gray-200"></span>
+            </div>
+
+            <div className="text-center space-y-3">
+              <p className="text-sm text-gray-600">
+                Want to explore FreshKartt without signing up?
+              </p>
+              <button
+                type="button"
+                onClick={onDemoLoginHandler}
+                disabled={isDemoLoading}
+                className="border border-primary text-primary hover:bg-primary hover:text-white disabled:cursor-not-allowed disabled:opacity-70 transition-all w-full py-3 rounded-lg text-sm font-semibold"
+              >
+                {isDemoLoading ? "Logging in..." : "Continue as Demo User"}
+              </button>
+            </div>
+          </div>
+        )}
       </form>
     </div>
   );

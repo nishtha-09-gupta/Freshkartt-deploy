@@ -61,7 +61,7 @@ const AddAddress = () => {
       </p>
 
       <div className="flex flex-col-reverse md:flex-row justify-between mt-10 items-center md:items-start gap-8">
-        {/* Form */}
+        
         <div className="flex-1 max-w-lg w-full bg-card p-6 rounded-xl shadow-md">
           <form onSubmit={onSubmitHandler} className="space-y-4 text-sm">
             <div className="grid grid-cols-2 gap-4">
@@ -90,7 +90,6 @@ const AddAddress = () => {
           </form>
         </div>
 
-        {/* Image */}
         <img
           className="md:mr-10 w-64 md:w-80 object-contain rounded-xl shadow-md"
           src={assets.add_address_iamge}
