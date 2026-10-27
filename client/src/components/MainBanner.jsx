@@ -1,38 +1,33 @@
 import React from 'react'
-import { assets } from '../assets/assets'
+import { ArrowRight, Clock3, Leaf, Sparkles } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
-const MainBanner = () => {
-  return (
-    <div className='relative'>
-      <img src={assets.main_banner_bg} alt="banner" className='w-full hidden md:block'/>
-      <img src={assets.main_banner_bg_sm} alt="banner" className='w-full md:hidden'/>
-
-      <div className='absolute inset-0 flex flex-col items-center md:items-end justify-end md:justify-center pb-12 md:pb-0 px-4 md:pr-20 lg:pr-28'>
-        <h1 className='text-3xl md:text-4xl lg:text-5xl font-bold text-center md:text-right max-w-[90%] md:max-w-[420px] lg:max-w-[520px] leading-snug md:leading-tight text-[#002410]'>
-          Freshness Served At Your Doorstep
-        </h1>
-
-        <div className='flex items-center mt-6 font-medium gap-4 justify-center md:justify-end'>
-          <Link
-            to={"/products"}
-            className='group flex items-center gap-2 px-7 md:px-9 py-3 bg-primary hover:bg-primary-light transition rounded text-white cursor-pointer'
-          >
-            Shop now
-            <img className='transition group-hover:translate-x-1 md:hidden' src={assets.white_arrow_icon} alt="arrow" />
-          </Link>
-
-          <Link
-            to={"/products"}
-            className='group hidden md:flex items-center gap-2 px-9 py-3 cursor-pointer'
-          >
-            Explore deals
-            <img className='transition group-hover:translate-x-1' src={assets.black_arrow_icon} alt="arrow" />
-          </Link>
-        </div>
+const MainBanner = () => (
+  <section className="hero-panel" aria-labelledby="hero-title">
+    <div className="hero-copy">
+      <div className="hero-eyebrow"><span className="hero-live-dot" /> THE GOOD STUFF, DELIVERED</div>
+      <h1 id="hero-title">A little more <span>fresh</span> in your every day.</h1>
+      <p>Farm-picked produce, pantry staples, and all your favourites — brought to your door with care.</p>
+      <div className="hero-actions">
+        <Link to="/products" className="hero-primary">Start shopping <ArrowRight size={17} /></Link>
+        <Link to="/offer" className="hero-secondary">Explore today’s deals</Link>
       </div>
+      <div className="hero-proof"><div className="proof-avatars"><i>F</i><i>K</i><i>+</i></div><span><strong>Good food, good mood.</strong><br/>Your neighbourhood grocery, online.</span></div>
     </div>
-  )
-}
+    <div className="hero-art" aria-hidden="true">
+      <div className="hero-art-glow" />
+      <div className="hero-orbit orbit-one" /><div className="hero-orbit orbit-two" />
+      <div className="produce-card produce-card-main">
+        <div className="produce-topline"><span><Leaf size={14} /> FARM FRESH</span><span className="produce-rating">★ 4.9</span></div>
+        <div className="produce-bowl"><span className="produce-fruit fruit-tomato" /><span className="produce-fruit fruit-orange" /><span className="produce-fruit fruit-leaf" /><span className="produce-fruit fruit-pear" /><span className="produce-fruit fruit-lemon" /></div>
+        <div className="produce-caption"><strong>Picked for you</strong><span>Freshness you can taste</span></div>
+      </div>
+      <div className="hero-float-tag tag-delivery"><span className="tag-icon"><Clock3 size={16} /></span><span><b>At your door</b><small>Fresh & fast</small></span></div>
+      <div className="hero-float-tag tag-organic"><Sparkles size={15} /><span>Goodness, daily</span></div>
+      <span className="hero-spark spark-a">✳</span><span className="hero-spark spark-b">✦</span>
+    </div>
+    <div className="hero-bottom-note"><span>01</span><span className="hero-note-line" /> A fresher kind of everyday</div>
+  </section>
+)
 
 export default MainBanner
