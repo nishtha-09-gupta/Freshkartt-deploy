@@ -1,6 +1,7 @@
 import React from "react";
 import { useAppContext } from "../context/AppContext";
 import { assets } from "../assets/assets";
+import { getProductImageUrl } from "../utils/productImage";
 
 const ProductCard = ({ product }) => {
   const { currency, addToCart, removeFromCart, cartItems, navigate } = useAppContext();
@@ -20,7 +21,7 @@ const ProductCard = ({ product }) => {
           <img
             className="transition-transform transform hover:scale-105 
                        max-w-24 sm:max-w-28 md:max-w-36 rounded-lg"
-            src={product.image[0]}
+            src={getProductImageUrl(product.image[0])}
             alt={product.name}
           />
         </div>

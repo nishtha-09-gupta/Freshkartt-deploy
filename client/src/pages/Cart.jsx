@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useAppContext } from "../context/AppContext";
 import { assets } from "../assets/assets";
 import toast from "react-hot-toast";
+import { getProductImageUrl } from "../utils/productImage";
 
 const Cart = () => {
   const {
@@ -117,7 +118,7 @@ const Cart = () => {
                 className="cursor-pointer w-24 h-24 flex items-center justify-center border border-gray-300 rounded-lg overflow-hidden"
               >
                 <img
-                  src={product.image[0]}
+                  src={getProductImageUrl(product.image[0])}
                   alt={product.name}
                   className="max-w-full h-full object-cover transition-transform hover:scale-105"
                 />

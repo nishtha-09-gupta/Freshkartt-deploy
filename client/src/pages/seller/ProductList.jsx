@@ -1,6 +1,7 @@
 import React from 'react'
 import { useAppContext } from '../../context/AppContext'
 import toast from 'react-hot-toast'
+import { getProductImageUrl } from '../../utils/productImage'
 
 const ProductList = () => {
     const { products, currency, axios, fetchProducts, isDemoCatalog } = useAppContext()
@@ -57,7 +58,7 @@ const ProductList = () => {
                                
                                     <td className="px-6 py-4 flex items-center space-x-4">
                                         <div className="w-16 h-16 rounded-lg border border-gray-300 overflow-hidden flex items-center justify-center bg-gray-50">
-                                            <img src={product.image[0]} alt={product.name} className="object-cover w-full h-full" />
+                                            <img src={getProductImageUrl(product.image[0])} alt={product.name} className="object-cover w-full h-full" />
                                         </div>
                                         <span className="truncate max-w-xs">{product.name}</span>
                                     </td>

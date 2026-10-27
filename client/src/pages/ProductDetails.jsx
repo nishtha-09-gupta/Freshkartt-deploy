@@ -3,6 +3,7 @@ import { useAppContext } from "../context/AppContext";
 import { Link, useParams } from "react-router-dom";
 import { assets } from "../assets/assets";
 import ProductCard from "../components/ProductCard";
+import { getProductImageUrl } from "../utils/productImage";
 
 const ProductDetails = () => {
   const { products, productsStatus, productsError, fetchProducts, navigate, currency, addToCart } = useAppContext();
@@ -61,12 +62,12 @@ const ProductDetails = () => {
                   thumbnail === img ? "border-primary" : "border-gray-300"
                 }`}
               >
-                <img src={img} alt={`Thumbnail ${idx + 1}`} className="w-20 h-20 object-cover" />
+                <img src={getProductImageUrl(img)} alt={`Thumbnail ${idx + 1}`} className="w-20 h-20 object-cover" />
               </div>
             ))}
           </div>
           <div className="border border-gray-300 rounded overflow-hidden flex items-center justify-center max-w-[400px]">
-            <img src={thumbnail} alt="Selected product" className="object-cover w-full h-full" />
+            <img src={getProductImageUrl(thumbnail)} alt="Selected product" className="object-cover w-full h-full" />
           </div>
         </div>
 
