@@ -1,4 +1,26 @@
-# React + Vite
+# FreshKart client
+
+## Optional development demo catalog
+
+The bundled `dummyProducts` list can be used for a clearly marked storefront preview without writing products to MongoDB. From the `client` directory, run:
+
+```sh
+VITE_USE_DEMO_CATALOG=true npm run dev
+```
+
+This option only works with Vite's development server. If the live API returns products, those products take precedence and the sample catalog is not mixed in. When the sample catalog is active, its cart is held in frontend state only and checkout, customer-cart syncing, and seller stock management are disabled for those sample items. Production builds never enable the demo catalog.
+
+## Existing app scripts
+
+- `npm run dev` starts the FreshKart client.
+- `npm run build` creates the production build.
+- `npm run lint` runs ESLint.
+
+The app uses the existing React and Vite setup; no additional dependencies are required.
+
+---
+
+This is an existing FreshKart MERN application, not a new Vite template project.
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 

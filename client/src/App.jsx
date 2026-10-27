@@ -31,7 +31,7 @@ import BestSeller from './components/BestSeller';
 const App = () => {
 
   const isSellerPath = useLocation().pathname.includes("seller");
-  const {showUserLogin, isSeller} = useAppContext()
+  const {showUserLogin, isSeller, isDemoCatalog, productsError, fetchProducts} = useAppContext()
 
   return (
     <div className='text-default min-h-screen text-gray-700 bg-white'>
@@ -40,6 +40,14 @@ const App = () => {
      {showUserLogin ? <Login/> : null}
 
      <Toaster />
+
+      {isDemoCatalog && !isSellerPath && (
+        <aside className="mx-6 mt-4 flex flex-col gap-2 rounded-lg border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-950 md:mx-16 lg:mx-24 xl:mx-32" role="status">
+          <p><strong>Development demo catalog.</strong> These bundled sample products are separate from live inventory. Cart changes stay in this browser session; checkout and customer cart sync are disabled.</p>
+          {productsError && <p className="text-xs text-amber-900">{productsError}</p>}
+          <button onClick={fetchProducts} className="w-fit text-xs font-semibold underline underline-offset-2">Retry live product catalog</button>
+        </aside>
+      )}
 
       <div className={`${isSellerPath ? "" : "px-6 md:px-16 lg:px-24 xl:px-32"}`}>
 

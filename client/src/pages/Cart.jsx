@@ -15,6 +15,7 @@ const Cart = () => {
     getCartAmount,
     axios,
     user,
+    isDemoCatalog,
     setCartItems,
     setShowUserLogin,
   } = useAppContext();
@@ -56,6 +57,8 @@ const Cart = () => {
         return toast.error("Please login to place an order");
       }
 
+      if (isDemoCatalog) return toast.error("Checkout is unavailable for the development demo catalog.");
+
       if (!selectedAddress) return toast.error("Please select an address");
 
       const orderData = {
@@ -86,8 +89,8 @@ const Cart = () => {
   }, [products, cartItems]);
 
   useEffect(() => {
-    if (user) getUserAddress();
-  }, [user]);
+    if (user && !isDemoCatalog) getUserAddress();
+  }, [user, isDemoCatalog]);
 
   if (!products.length || !cartItems) return null;
 
@@ -169,7 +172,11 @@ const Cart = () => {
       <div className="max-w-[360px] w-full bg-white p-5 rounded-lg shadow-md border border-gray-200">
         <h2 className="text-xl font-semibold text-[var(--color-text-dark)]">Order Summary</h2>
         <hr className="border-gray-300 my-4" />
-        <div className="space-y-4">
+        {isDemoCatalog ? (
+          <p className="rounded-md bg-amber-50 p-3 text-sm text-amber-900">
+            This sample cart is local only. Delivery details and payment are not used in demo mode.
+          </p>
+        ) : <div className="space-y-4">
           <div>
             <p className="text-sm font-medium uppercase text-gray-700">Delivery Address</p>
             <div className="relative mt-2">
@@ -221,7 +228,7 @@ const Cart = () => {
               <option value="Online">Online Payment</option>
             </select>
           </div>
-        </div>
+        </div>}
 
         <hr className="border-gray-300 mt-4" />
         <div className="mt-4 text-gray-700 space-y-2">
@@ -254,9 +261,10 @@ const Cart = () => {
 
         <button
           onClick={placeOrder}
-          className="w-full py-3 mt-4 bg-primary text-white font-semibold rounded-lg hover:bg-primary-dull transition"
+          disabled={isDemoCatalog}
+          className="w-full py-3 mt-4 bg-primary text-white font-semibold rounded-lg hover:bg-primary-dull transition disabled:cursor-not-allowed disabled:bg-gray-400"
         >
-          {paymentOption === "COD" ? "Place Order" : "Proceed to Checkout"}
+          {isDemoCatalog ? "Demo checkout unavailable" : paymentOption === "COD" ? "Place Order" : "Proceed to Checkout"}
         </button>
       </div>
     </div>

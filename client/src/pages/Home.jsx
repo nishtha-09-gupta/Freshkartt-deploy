@@ -7,7 +7,7 @@ import NewsLetter from '../components/NewsLetter'
 
 const Home = () => {
   return (
-    <div className='home-page'>
+    <div className='mt-10'>
       <MainBanner />
       <Categories />
       <BestSeller />

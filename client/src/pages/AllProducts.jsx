@@ -3,23 +3,16 @@ import { useAppContext } from '../context/AppContext'
 import ProductCard from '../components/ProductCard'
 
 const AllProducts = () => {
-  const { products, searchQuery } = useAppContext()
-  const [filteredProducts, setFilteredProducts] = useState([])
+  const { products, productsStatus, productsError, fetchProducts, searchQuery } = useAppContext()
   const [currentPage, setCurrentPage] = useState(1)
   const itemsPerPage = 20
+  const filteredProducts = searchQuery.trim()
+    ? products.filter((product) => product.name.toLowerCase().includes(searchQuery.trim().toLowerCase()))
+    : products
 
   useEffect(() => {
-    if (searchQuery.length > 0) {
-      setFilteredProducts(
-        products.filter((product) =>
-          product.name.toLowerCase().includes(searchQuery.toLowerCase())
-        )
-      )
-    } else {
-      setFilteredProducts(products)
-    }
     setCurrentPage(1)
-  }, [products, searchQuery])
+  }, [searchQuery, products])
 
   const inStockProducts = filteredProducts.filter((p) => p.inStock)
   const totalPages = Math.ceil(inStockProducts.length / itemsPerPage)
@@ -37,14 +30,22 @@ const AllProducts = () => {
         </h1>
       </div>
 
-      <div className="px-2 sm:px-0 grid grid-cols-2 gap-3 
-                      sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 md:gap-6">
-
-        {currentProducts.map((product, index) => (
-          <ProductCard key={index} product={product} />
-        ))}
-
-      </div>
+      {productsStatus === 'loading' ? (
+        <p className="py-12 text-center text-sm text-gray-500" role="status">Loading products…</p>
+      ) : productsStatus === 'error' ? (
+        <div className="flex flex-col items-center gap-3 py-12 text-center" role="alert">
+          <p className="text-sm text-gray-600">Products couldn’t be loaded. {productsError}</p>
+          <button onClick={fetchProducts} className="rounded-lg bg-primary px-5 py-2 text-sm font-medium text-white hover:bg-primary-light">Try again</button>
+        </div>
+      ) : currentProducts.length > 0 ? (
+        <div className="px-2 sm:px-0 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 md:gap-6">
+          {currentProducts.map((product) => <ProductCard key={product._id} product={product} />)}
+        </div>
+      ) : (
+        <p className="py-12 text-center text-sm text-gray-500">
+          {searchQuery.trim() ? 'No products match your search.' : 'No products are available right now.'}
+        </p>
+      )}
       {totalPages > 1 && (
         <div className="flex items-center justify-center gap-4 mt-12">
           <button

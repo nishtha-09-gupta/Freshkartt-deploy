@@ -5,7 +5,7 @@ import { assets } from "../assets/assets";
 import ProductCard from "../components/ProductCard";
 
 const ProductDetails = () => {
-  const { products, navigate, currency, addToCart } = useAppContext();
+  const { products, productsStatus, productsError, fetchProducts, navigate, currency, addToCart } = useAppContext();
   const { id } = useParams();
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [thumbnail, setThumbnail] = useState(null);
@@ -25,7 +25,20 @@ const ProductDetails = () => {
     setThumbnail(product?.image[0] || null);
   }, [product]);
 
-  if (!product) return null;
+  if (!product && productsStatus === 'loading') {
+    return <p className="my-16 text-center text-sm text-gray-500" role="status">Loading product…</p>;
+  }
+
+  if (!product && productsStatus === 'error') {
+    return (
+      <div className="my-16 flex flex-col items-center gap-3 text-center" role="alert">
+        <p className="text-sm text-gray-600">This product couldn’t be loaded. {productsError}</p>
+        <button onClick={fetchProducts} className="rounded-lg bg-primary px-5 py-2 text-sm font-medium text-white hover:bg-primary-light">Try again</button>
+      </div>
+    );
+  }
+
+  if (!product) return <p className="my-16 text-center text-sm text-gray-500">Product not found.</p>;
 
   return (
     <div className="mt-16 px-6 md:px-16 pb-16">

@@ -3,7 +3,7 @@ import { useAppContext } from '../../context/AppContext'
 import toast from 'react-hot-toast'
 
 const ProductList = () => {
-    const { products, currency, axios, fetchProducts } = useAppContext()
+    const { products, currency, axios, fetchProducts, isDemoCatalog } = useAppContext()
 
     const toggleStock = async (id, inStock) => {
         try {
@@ -17,6 +17,20 @@ const ProductList = () => {
         } catch (error) {
             toast.error(error.message)
         }
+    }
+
+    if (isDemoCatalog) {
+        return (
+            <div className="flex-1 h-[95vh] overflow-y-auto p-6 md:p-10 bg-bg">
+                <h2 className="text-2xl font-semibold text-text-dark mb-3">All Products</h2>
+                <p className="max-w-xl text-sm text-gray-600">
+                    The development demo catalog is a storefront preview and is not part of seller inventory. Turn off the demo catalog to manage live products.
+                </p>
+                <button onClick={fetchProducts} className="mt-4 rounded-md border border-primary px-4 py-2 text-sm font-medium text-primary">
+                    Retry live product catalog
+                </button>
+            </div>
+        )
     }
 
     return (
