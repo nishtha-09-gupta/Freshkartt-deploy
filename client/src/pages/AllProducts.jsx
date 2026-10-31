@@ -6,15 +6,17 @@ const AllProducts = () => {
   const { products, productsStatus, productsError, fetchProducts, searchQuery } = useAppContext()
   const [currentPage, setCurrentPage] = useState(1)
   const itemsPerPage = 20
-  const filteredProducts = searchQuery.trim()
-    ? products.filter((product) => product.name.toLowerCase().includes(searchQuery.trim().toLowerCase()))
-    : products
+  const normalizedQuery = typeof searchQuery === 'string' ? searchQuery.trim().toLowerCase() : ''
+  const availableProducts = Array.isArray(products) ? products : []
+  const filteredProducts = normalizedQuery
+    ? availableProducts.filter((product) => typeof product?.name === 'string' && product.name.toLowerCase().includes(normalizedQuery))
+    : availableProducts
 
   useEffect(() => {
     setCurrentPage(1)
   }, [searchQuery, products])
 
-  const inStockProducts = filteredProducts.filter((p) => p.inStock)
+  const inStockProducts = filteredProducts.filter((product) => product?.inStock)
   const totalPages = Math.ceil(inStockProducts.length / itemsPerPage)
   const startIndex = (currentPage - 1) * itemsPerPage
   const currentProducts = inStockProducts.slice(startIndex, startIndex + itemsPerPage)
@@ -43,7 +45,7 @@ const AllProducts = () => {
         </div>
       ) : (
         <p className="py-12 text-center text-sm text-gray-500">
-          {searchQuery.trim() ? 'No products match your search.' : 'No products are available right now.'}
+          {normalizedQuery ? 'No products match your search.' : 'No products are available right now.'}
         </p>
       )}
       {totalPages > 1 && (

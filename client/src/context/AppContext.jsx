@@ -1,6 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { dummyProducts } from "../assets/assets";
 import toast from "react-hot-toast";
 import axios from "axios";
 
@@ -18,9 +17,11 @@ export const AppContextProvider = ({children})=>{
     const [isSeller, setIsSeller] = useState(false)
     const [showUserLogin, setShowUserLogin] = useState(false)
     const [products, setProducts] = useState([])
+    const [productsStatus, setProductsStatus] = useState('loading')
+    const [productsError, setProductsError] = useState('')
 
     const [cartItems, setCartItems] = useState({})
-    const [searchQuery, setSearchQuery] = useState({})
+    const [searchQuery, setSearchQuery] = useState('')
 
   // Seller Status
   const fetchSeller = async ()=>{
@@ -31,7 +32,7 @@ export const AppContextProvider = ({children})=>{
         }else{
             setIsSeller(false)
         }
-    } catch (error) {
+    } catch {
         setIsSeller(false)
     }
   }
@@ -44,7 +45,7 @@ const fetchUser = async ()=>{
             setUser(data.user)
             setCartItems(data.user.cartItems)
         }
-    } catch (error) {
+    } catch {
         setUser(null)
     }
 }
@@ -53,15 +54,24 @@ const fetchUser = async ()=>{
 
     //all products 
     const fetchProducts = async ()=>{
+        setProductsStatus('loading')
+        setProductsError('')
         try {
             const { data } = await axios.get('/api/product/list')
-            if(data.success){
+            if(data?.success && Array.isArray(data.products)){
                 setProducts(data.products)
+                setProductsStatus('success')
             }else{
-                toast.error(data.message)
+                const message = data?.message || 'The product service returned an unexpected response.'
+                setProductsError(message)
+                setProductsStatus('error')
+                toast.error(message)
             }
         } catch (error) {
-            toast.error(error.message)
+            const message = error.response?.data?.message || error.message || 'Please try again.'
+            setProductsError(message)
+            setProductsStatus('error')
+            toast.error(message)
         }
     }
 
@@ -146,7 +156,7 @@ const getCartAmount = () =>{
     },[cartItems])
 
     const value = {navigate, user, setUser, setIsSeller, isSeller,
-        showUserLogin, setShowUserLogin, products, currency, addToCart, updateCartItem, removeFromCart, cartItems, searchQuery, setSearchQuery, getCartAmount, getCartCount, axios, fetchProducts, setCartItems
+        showUserLogin, setShowUserLogin, products, productsStatus, productsError, currency, addToCart, updateCartItem, removeFromCart, cartItems, searchQuery, setSearchQuery, getCartAmount, getCartCount, axios, fetchProducts, setCartItems
     }
 
     return <AppContext.Provider value={value}>
